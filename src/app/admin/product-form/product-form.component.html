@@ -4,7 +4,7 @@
     <form #f="ngForm" (ngSubmit)="save(f.value)">
       <div class="form-group">
         <label for="title">عنوان</label>
-        <input #title="ngModel" ngModel name="title" type="title" class="form-control" id="title" required >
+        <input #title="ngModel" [(ngModel)]="product.title" name="title" type="title" class="form-control" id="title" required >
         <div class="alert alert-danger" role="alert" *ngIf="title.touched && title.invalid">
           عنوان را وارد کنید 
         </div>
@@ -15,7 +15,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">$</span>
             </div>
-          <input #price="ngModel" ngModel name="price" type="number" class="form-control" id="price" required [min]="0" >
+          <input #price="ngModel" [(ngModel)]="product.price" name="price" type="number" class="form-control" id="price" required [min]="0" >
           <div class="input-group-append">
               <span class="input-group-text">.00</span>
           </div>
@@ -31,7 +31,7 @@
 
       <div class="form-group">
           <label for="category">دسته بندی</label>
-          <select #category="ngModel" ngModel name="category" class="form-control" id="category" required>
+          <select #category="ngModel" [(ngModel)]="product.category" name="category" class="form-control" id="category" required>
             <option value=""></option>
             <option *ngFor="let c of categories$ | async " [value]="c.$key">
               {{ c.name }}
@@ -44,7 +44,7 @@
 
         <div class="form-group">
             <label for="imageUrl">آدرس عکس</label>
-            <input #imageUrl="ngModel" ngModel name="imageUrl" type="imageUrl" class="form-control" id="imageUrl" required url>
+            <input #imageUrl="ngModel" [(ngModel)]="product.imageUrl" name="imageUrl" type="imageUrl" class="form-control" id="imageUrl" required url>
             <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
               <div *ngIf="imageUrl.errors.required"> آدرس عکس را وارد کنید </div>
               <div *ngIf="imageUrl.errors.url"> آدرس را صحیح وارد کنید </div>
@@ -59,7 +59,7 @@
   <div class="col-md-6">
 
     <div class="card">
-      <img class="card-img" [src]="imageUrl.value" >
+      <img class="card-img" [src]="product.imageUrl" *ngIf="product.imageUrl">
     </div>
     <div class="card p-3 text-right">
       <blockquote class="blockquote mb-0">
@@ -73,8 +73,8 @@
     </div>
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">{{ title.value}}</h5>
-        <p class="card-text">{{price.value | currency:'USD':true}}</p>
+        <h5 class="card-title">{{ product.title}}</h5>
+        <p class="card-text">{{product.price | currency:'USD'}}</p>
       </div>
     </div>
 
