@@ -22,6 +22,9 @@ update(productId, product){
   this.db.object('/products/'+ productId).update(product);
 }
 
+delete(productId){
+  return this.db.object('/products/' + productId).remove();
+}
 
 
 }
